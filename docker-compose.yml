@@ -1,0 +1,11 @@
+version: "3.1"
+
+services:
+    db:
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: ""
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        ports:
+            - 3336:3336
+        command: --port 3336
