@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\TaskRepository;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -13,7 +14,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return "ok";
+        $repository = new TaskRepository();
+        return $repository->findAll();
     }
 
     /**
