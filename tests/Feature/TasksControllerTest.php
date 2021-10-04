@@ -16,4 +16,10 @@ class TasksControllerTest extends TestCase
         $response = $this->get('/api/tasks');
         $response->assertStatus(200);
     }
+
+    public function test_show()
+    {
+        $response = $this->get('/api/tasks/1');
+        $response->assertStatus(200);
+    }
 }
