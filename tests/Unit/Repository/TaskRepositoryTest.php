@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Repositrory;
 
+use App\Models\Task;
 use App\Repository\TaskRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,19 +14,21 @@ class TaskRepositoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed('TaskSeeder');
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function test_findAll()
     {
         $repository = new TaskRepository();
 
+        $this->seed('TaskSeeder');
         // MEMO: factoryで10個のデータを作成している
         $this->assertCount(10, $repository->findAll());
+    }
+
+    public function test_findOne()
+    {
+        $repository = new TaskRepository();
+        $target = Task::factory()->create();
+        $this->assertSame($target->id, $repository->findOne($target->id)->id);
     }
 }
