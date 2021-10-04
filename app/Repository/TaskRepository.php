@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repository;
 
 use App\Models\Task;
@@ -10,5 +11,11 @@ class TaskRepository
     {
         $tasks = Task::get();
         return $tasks;
+    }
+
+    function findOne(int $id)
+    {
+        $task = Task::find($id);
+        return $task;
     }
 }

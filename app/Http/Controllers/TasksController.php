@@ -47,7 +47,8 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        //
+        $repository = new TaskRepository();
+        return $repository->findOne($id);
     }
 
     /**
@@ -58,7 +59,6 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
