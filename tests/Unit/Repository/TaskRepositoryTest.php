@@ -14,15 +14,13 @@ class TaskRepositoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->seed('TaskSeeder');
     }
 
     public function test_findAll()
     {
         $repository = new TaskRepository();
-
-        $this->seed('TaskSeeder');
-        // MEMO: factoryで10個のデータを作成している
-        $this->assertCount(10, $repository->findAll());
+        $this->assertCount( Task::get()->count(), $repository->findAll());
     }
 
     public function test_findOne()
@@ -30,5 +28,20 @@ class TaskRepositoryTest extends TestCase
         $repository = new TaskRepository();
         $target = Task::factory()->create();
         $this->assertSame($target->id, $repository->findOne($target->id)->id);
+    }
+
+    public function test_creteOne()
+    {
+        $repository = new TaskRepository();
+        $recordCountBeforeStoring = Task::get()->count();
+
+        $params = [
+            'title' => "test",
+            'content' => "text"
+        ];
+        $repository->createOne($params);
+        $recordsAfterStoring = Task::get();
+
+        $this->assertCount(($recordCountBeforeStoring + 1), $recordsAfterStoring);
     }
 }
