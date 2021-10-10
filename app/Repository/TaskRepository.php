@@ -18,4 +18,8 @@ class TaskRepository
         $task = Task::find($id);
         return $task;
     }
+
+    function createOne($params) {
+        Task::create($params);
+    }
 }
