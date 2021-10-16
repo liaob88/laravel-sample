@@ -23,8 +23,15 @@ class TasksControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_store(){
+    public function test_store()
+    {
         $response = $this->post('api/tasks/store', ['title' => 'title', 'content' => 'text']);
+        $response->assertStatus(200);
+    }
+
+    public function test_update()
+    {
+        $response = $this->post('api/tasks/1/update', ['title' => 'updatedTitle', 'content' => 'updatedText']);
         $response->assertStatus(200);
     }
 }
