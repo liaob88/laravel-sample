@@ -19,7 +19,15 @@ class TaskRepository
         return $task;
     }
 
-    function createOne($params) {
+    function createOne($params)
+    {
         Task::create($params);
+    }
+
+    function updateOne(int $id, $params): Task
+    {
+        Task::where('id', $id)->update($params);
+        
+        return Task::find($id);
     }
 }

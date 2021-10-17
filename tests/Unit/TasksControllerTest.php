@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Task;
 use Tests\TestCase;
 
 class TasksControllerTest extends TestCase
@@ -23,8 +24,19 @@ class TasksControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_store(){
+    public function test_store()
+    {
         $response = $this->post('api/tasks/store', ['title' => 'title', 'content' => 'text']);
         $response->assertStatus(200);
+    }
+
+    public function test_update()
+    {
+        $target = Task::first()->id;
+        $endPoint = 'api/tasks/' . $target . '/update';
+        $response = $this->post($endPoint, ['title' => 'updatedTitle', 'content' => 'updatedText']);
+
+        $response->assertStatus(200);
+        $this->assertSame($response['id'], $target);
     }
 }
