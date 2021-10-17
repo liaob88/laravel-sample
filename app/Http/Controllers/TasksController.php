@@ -12,10 +12,9 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TaskRepository $taskRepository)
     {
-        $repository = new TaskRepository();
-        return $repository->findAll();
+        return $taskRepository->findAll();
     }
 
     /**
@@ -24,10 +23,9 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskRepository $taskRepository, Request $request)
     {
-        $repository = new TaskRepository();
-        $repository->createOne($request->all());
+        $taskRepository->createOne($request->all());
         return response("ok");
     }
 
@@ -37,10 +35,9 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(TaskRepository $taskRepository, int $id)
     {
-        $repository = new TaskRepository();
-        return $repository->findOne($id);
+        return $taskRepository->findOne($id);
     }
 
     /**
@@ -50,7 +47,7 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskRepository $taskRepository, Request $request, $id)
+    public function update(TaskRepository $taskRepository, Request $request, int $id)
     {
         $taskRepository->updateOne($id, $request->all());
         return response("updated");

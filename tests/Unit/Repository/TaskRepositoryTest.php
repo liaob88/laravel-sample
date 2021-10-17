@@ -19,26 +19,29 @@ class TaskRepositoryTest extends TestCase
 
     public function test_findAll()
     {
-        $repository = new TaskRepository();
+        $repository = $this->app->make(TaskRepository::class);
+
         $this->assertCount(Task::get()->count(), $repository->findAll());
     }
 
     public function test_findOne()
     {
-        $repository = new TaskRepository();
         $target = Task::factory()->create();
+
+        $repository = $this->app->make(TaskRepository::class);
+
         $this->assertSame($target->id, $repository->findOne($target->id)->id);
     }
 
     public function test_creteOne()
     {
-        $repository = new TaskRepository();
         $recordCountBeforeStoring = Task::get()->count();
-
         $params = [
             'title' => "test",
             'content' => "text"
         ];
+
+        $repository = $this->app->make(TaskRepository::class);
         $repository->createOne($params);
         $recordsAfterStoring = Task::get();
 
