@@ -49,8 +49,8 @@ class TasksController extends Controller
      */
     public function update(TaskRepository $taskRepository, Request $request, int $id)
     {
-        $taskRepository->updateOne($id, $request->all());
-        return response("updated");
+        $updatedTask = $taskRepository->updateOne($id, $request->all());
+        return $updatedTask;
     }
 
     /**

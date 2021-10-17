@@ -24,8 +24,10 @@ class TaskRepository
         Task::create($params);
     }
 
-    function updateOne(int $id, $params): void
+    function updateOne(int $id, $params): Task
     {
         Task::where('id', $id)->update($params);
+        
+        return Task::find($id);
     }
 }

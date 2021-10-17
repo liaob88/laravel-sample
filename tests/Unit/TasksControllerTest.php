@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Task;
 use Tests\TestCase;
 
 class TasksControllerTest extends TestCase
@@ -31,7 +32,11 @@ class TasksControllerTest extends TestCase
 
     public function test_update()
     {
-        $response = $this->post('api/tasks/1/update', ['title' => 'updatedTitle', 'content' => 'updatedText']);
+        $target = Task::first()->id;
+        $endPoint = 'api/tasks/' . $target . '/update';
+        $response = $this->post($endPoint, ['title' => 'updatedTitle', 'content' => 'updatedText']);
+
         $response->assertStatus(200);
+        $this->assertSame($response['id'], $target);
     }
 }
